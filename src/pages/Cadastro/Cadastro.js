@@ -19,7 +19,9 @@ export default function Cadastro() {
       <InputSenha placeholder="senha" />
       <InputNome placeholder="nome" />
       <InputFoto placeholder="foto" />
+      <Link to="/habitos">
       <BotaoCadastrar>Cadastrar</BotaoCadastrar>
+      </Link>
       <Link to="/">
         <TextoParaLogar>Já tem uma conta? Faça login!</TextoParaLogar>
       </Link>
