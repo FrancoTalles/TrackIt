@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { letrasBorda, fundoBotao, corBotao } from "../../constants/colorInputs";
 
-export const LoginBody = styled.div`
+export const CadastroBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +33,11 @@ export const InputSenha = styled(InputEmail)`
   margin-top: 6px;
 `;
 
-export const BotaoEntrar = styled.button`
+export const InputNome = styled(InputSenha)``;
+
+export const InputFoto = styled(InputSenha)``;
+
+export const BotaoCadastrar = styled.button`
   width: 80.8%;
   height: 45px;
   color: ${fundoBotao};
@@ -48,7 +52,7 @@ export const BotaoEntrar = styled.button`
   font-style: normal;
 `;
 
-export const TextoParaCadastrar = styled.h1`
+export const TextoParaLogar = styled.h1`
   margin-top: 25px;
   font-family: "Lexend Deca", sans-serif;
   font-style: normal;
