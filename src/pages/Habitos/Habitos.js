@@ -1,51 +1,52 @@
-import styled from "styled-components";
+import { useState } from "react";
 import Footer from "../../components/Footer/Fotter";
 import Header from "../../components/Header/Header";
-import { background, corHeader, corBotao } from "../../constants/colorInputs";
+import {
+  CadastroHabito,
+  CancelaSalva,
+  HabitosBody,
+  InputHabito,
+  Semana,
+  TextoSemHabito,
+  TituloBotao,
+} from "./styledHabitos";
 
 export default function Habitos() {
+  const [cadastroAtivo, setCadastroAtivo] = useState(false);
   return (
     <HabitosBody>
       <Header />
       <TituloBotao>
         <p>Meus hábitos</p>
-        <div>+</div>
+        <button onClick={() => setCadastroAtivo(!cadastroAtivo)}>+</button>
       </TituloBotao>
+      {cadastroAtivo ? (
+        <CadastroHabito>
+          <InputHabito placeholder="nome do hábito"></InputHabito>
+          <Semana>
+            <button>D</button>
+            <button>S</button>
+            <button>T</button>
+            <button>Q</button>
+            <button>Q</button>
+            <button>S</button>
+            <button>S</button>
+          </Semana>
+          <CancelaSalva>
+            <p onClick={() => setCadastroAtivo(!cadastroAtivo)}>Cancelar</p>
+            <button>Salvar</button>
+          </CancelaSalva>
+        </CadastroHabito>
+      ) : (
+        ""
+      )}
+      <TextoSemHabito>
+        <p>
+          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+          começar a trackear!
+        </p>
+      </TextoSemHabito>
       <Footer />
     </HabitosBody>
   );
 }
-
-const HabitosBody = styled.div`
-  background-color: ${background};
-  height: 100%;
-`
-const TituloBotao = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 92px;
-  p{
-    margin-left: 17px;
-    font-family: "Lexend Deca", sans-serif;
-    font-weight: 400;
-    font-size: 23px;
-    line-height: 29px;
-    color: ${corHeader}
-  }
-  div{
-    width: 40px;
-    height: 35px;
-    background-color: ${corBotao};
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Lexend Deca", sans-serif;
-    font-weight: 400;
-    font-size: 27px;
-    line-height: 34px;
-    border-radius: 5px;
-    margin-right: 18px;
-  }
-`
