@@ -156,9 +156,9 @@ export const HabitoDiv = styled.div`
     font-weight: 400;
     font-size: 20px;
     line-height: 25px;
+    color: ${grandesTextos};
     margin-left: 19px;
     margin-top: 10px;
-    color: ${grandesTextos};
   }
   div{
     margin-top: 10px;
