@@ -11,8 +11,9 @@ import {
 export const HabitosBody = styled.div`
   background-color: ${background};
   width: 100%;
-  height: 1000px;
+  height: 100%;
   margin-top: 70px;
+  padding-bottom: 105px;
   display: flex;
   flex-direction: column;
   align-items: center;

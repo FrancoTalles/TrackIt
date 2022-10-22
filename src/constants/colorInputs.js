@@ -8,3 +8,5 @@ export const textoSecundario = "#bababa";
 export const corCheckBoxCinza = "#ebebeb";
 export const corCheckBoxVerde = "#8fc549";
 export const corCheckBoxBorda = "#e7e7e7";
+
+export const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit"

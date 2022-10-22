@@ -17,44 +17,59 @@ export default function Habitos() {
   const [habitos, setHabitos] = useState(false);
 
   const habitosTeste = [
-    {
-      id: 1,
-      name: "Limpar a Casa",
-      days: [1, 3, 5],
-    },
-    {
-      id: 2,
-      name: "Varrer a cama",
-      days: [1, 3, 4, 6],
-    },
-    {
-      id: 3,
-      name: "Jogar Lixo",
-      days: [1, 3, 5],
-    },
-    {
-      id: 4,
-      name: "Beber Agua",
-      days: [1, 3, 4, 6],
-    },{
-      id: 5,
-      name: "Fazer o projeto",
-      days: [1, 3, 5],
-    },
-    {
-      id: 6,
-      name: "Ir para a academia",
-      days: [1, 3, 4, 6],
-    },{
-      id: 7,
-      name: "Estudar",
-      days: [1, 3, 5],
-    },
-    {
-      id: 8,
-      name: "Dormir",
-      days: [1, 3, 4, 6],
-    },
+    // {
+    //   id: 1,
+    //   name: "Limpar a Casa",
+    //   days: [1, 3, 5],
+    // },
+    // {
+    //   id: 2,
+    //   name: "Varrer a cama",
+    //   days: [1, 3, 4, 6],
+    // },
+    // {
+    //   id: 3,
+    //   name: "Jogar Lixo",
+    //   days: [1, 3, 5],
+    // },
+    // {
+    //   id: 4,
+    //   name: "Beber Agua",
+    //   days: [1, 3, 4, 6],
+    // },{
+    //   id: 5,
+    //   name: "Fazer o projeto",
+    //   days: [1, 3, 5],
+    // },
+    // {
+    //   id: 6,
+    //   name: "Ir para a academia",
+    //   days: [1, 3, 4, 6],
+    // },{
+    //   id: 7,
+    //   name: "Estudar",
+    //   days: [1, 3, 5],
+    // },
+    // {
+    //   id: 8,
+    //   name: "Dormir",
+    //   days: [1, 3, 4, 6],
+    // },
+    // {
+    //   id: 9,
+    //   name: "Sonhar",
+    //   days: [1, 3, 4, 6],
+    // },
+    // {
+    //   id: 10,
+    //   name: "Jogar",
+    //   days: [1, 3, 4, 6],
+    // },
+    // {
+    //   id: 11,
+    //   name: "Sarrar",
+    //   days: [1, 3, 4, 6],
+    // }
   ];
 
   return (
