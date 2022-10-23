@@ -12,6 +12,7 @@ export const HabitosBody = styled.div`
   background-color: ${background};
   width: 100%;
   height: 100%;
+  height: ${(props) => props.controle <= 6 ? ("900px") : ("100%")};
   margin-top: 70px;
   padding-bottom: 105px;
   display: flex;
@@ -85,6 +86,7 @@ export const InputHabito = styled.input`
   font-size: 20px;
   line-height: 25px;
   padding-left: 11px;
+  background-color: ${(props) => (props.disabled ? background : fundoBotao)};
   &::placeholder {
     color: ${letrasBorda};
     font-family: "Lexend Deca", sans-serif;
@@ -105,23 +107,6 @@ export const SemanaDivs = styled.div`
   margin-top: 8px;
   margin-left: 19px;
   display: flex;
-  div {
-    width: 30px;
-    height: 30px;
-    border: 1px solid ${letrasBorda};
-    border-radius: 5px;
-    margin-right: 4px;
-    color: ${letrasBorda};
-    background-color: ${fundoBotao};
-    font-family: "Lexend Deca", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
 export const CancelaSalva = styled.div`
@@ -150,6 +135,11 @@ export const CancelaSalva = styled.div`
     background-color: ${corBotao};
     border: 1px solid ${corBotao};
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: ${(props) => (props.carregando ? "initial" : "pointer")};
+    filter: opacity(${(props) => (props.carregando ? "60%" : "100%")});
   }
 `;
 
@@ -169,9 +159,6 @@ export const HabitoDiv = styled.div`
     line-height: 25px;
     color: ${grandesTextos};
     margin-left: 19px;
-    margin-top: 10px;
-  }
-  div {
     margin-top: 10px;
   }
   ion-icon {

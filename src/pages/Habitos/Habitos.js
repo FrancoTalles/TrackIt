@@ -16,6 +16,8 @@ import { URL } from "../../constants/colorInputs";
 import DiasDaSemana from "../../components/DiasDaSemana/DiasDaSemana";
 import axios from "axios";
 import { AuthContext } from "../../contexts/auth";
+import { ThreeDots } from "react-loader-spinner";
+import Dia from "./Dia";
 
 export default function Habitos() {
   const [cadastroAtivo, setCadastroAtivo] = useState(false);
@@ -26,38 +28,51 @@ export default function Habitos() {
   });
   const [days, setDays] = useState([]);
   const [carregando, setCarregando] = useState(false);
+  const [atualizar, setAtualizar] = useState(false);
 
   const diasSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-  const habitosTeste = [
-    {
-      id: 1,
-      name: "Limpar a Casa",
-      days: [1, 3, 5],
-    },
-  ];
-
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const config = {
     headers: {
-      "Authorization": `Bearer ${user.token}`
-    }
-  }
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
 
   function cadastrarHabito(event) {
     event.preventDefault();
     console.log("Cadastrando");
     const promise = axios.post(`${URL}/habits`, form, config);
+    setCarregando(true);
 
-    promise.then(resposta => console.log(resposta.data))
+    promise.then((resposta) => {
+      console.log(resposta.data);
+      setCadastroAtivo(!cadastroAtivo);
+      setAtualizar(!atualizar);
+      setCarregando(false);
+      setForm({
+        name: "",
+        days: [],
+      });
+      setDays([]);
+    });
 
-    promise.catch(err => console.log(err.response.data))
+    promise.catch((err) => {
+      alert(err.response.data.message);
+      setCadastroAtivo(!cadastroAtivo);
+      setAtualizar(!atualizar);
+      setCarregando(false);
+      setForm({
+        name: "",
+        days: [],
+      });
+      setDays([]);
+    });
   }
 
   function handleForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log({ ...form, [e.target.name]: e.target.value });
   }
 
   function adicionarDias(d) {
@@ -67,7 +82,6 @@ export default function Habitos() {
       dias.sort(function (a, b) {
         return a - b;
       });
-      console.log(dias);
       setDays(dias);
       setForm({ ...form, days: dias });
     } else {
@@ -76,18 +90,53 @@ export default function Habitos() {
       dias.sort(function (a, b) {
         return a - b;
       });
-      console.log(dias);
       setDays(dias);
       setForm({ ...form, days: dias });
     }
   }
 
+  function excluirHabito(id) {
+    const confirmacao = window.confirm("Quer mesmo excluir esse habito?");
+    if (confirmacao === true) {
+      console.log("Excluindo");
+      const promise = axios.delete(`${URL}/habits/${id}`, config);
+
+      promise.then((resposta) => {
+        setAtualizar(!atualizar);
+      });
+
+      promise.catch((err) => console.log(err.response.data.message));
+    } else {
+      console.log("Nao excluiu");
+    }
+  }
+
+  function montarSemana() {}
+
+  useEffect(() => {
+    const promise = axios.get(`${URL}/habits`, config);
+
+    promise.then((resposta) => {
+      console.log(resposta.data);
+      setHabitos(resposta.data);
+    });
+
+    promise.catch((err) => console.log(err.response.data.message));
+  }, [atualizar]);
+
   return (
-    <HabitosBody>
+    <HabitosBody controle={habitos.length}>
       <Header />
       <TituloBotao>
         <p>Meus hábitos</p>
-        <button onClick={() => setCadastroAtivo(!cadastroAtivo)}>+</button>
+        <button
+          onClick={() => {
+            setCadastroAtivo(!cadastroAtivo);
+            setDays([]);
+          }}
+        >
+          +
+        </button>
       </TituloBotao>
       {cadastroAtivo ? (
         <CadastroHabito>
@@ -99,6 +148,7 @@ export default function Habitos() {
               required
               onChange={handleForm}
               value={form.name}
+              disabled={carregando}
             ></InputHabito>
             <Semana>
               {diasSemana.map((d, index) => (
@@ -110,108 +160,66 @@ export default function Habitos() {
                 />
               ))}
             </Semana>
-            <CancelaSalva>
+            <CancelaSalva carregando={carregando}>
               <p
                 onClick={() => {
                   setCadastroAtivo(!cadastroAtivo);
-                  setForm({
-                    name: "",
-                    days: [],
-                  });
+                  setAtualizar(!atualizar);
                   setDays([]);
                 }}
               >
                 Cancelar
               </p>
-              <button type="submit">Salvar</button>
+              <button disabled={carregando} type="submit">
+                {carregando ? (
+                  <ThreeDots
+                    height="20"
+                    width="60"
+                    radius="9"
+                    color="#ffffff"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                  />
+                ) : (
+                  "Salvar"
+                )}
+              </button>
             </CancelaSalva>
           </form>
         </CadastroHabito>
       ) : (
         ""
       )}
-      {habitosTeste.map((h) => (
-        <HabitoDiv key={h.id}>
-          <p>{h.name}</p>
-          <SemanaDivs>
-            <div>D</div>
-            <div>S</div>
-            <div>T</div>
-            <div>Q</div>
-            <div>Q</div>
-            <div>S</div>
-            <div>S</div>
-          </SemanaDivs>
-          <ion-icon name="trash-outline"></ion-icon>
-        </HabitoDiv>
-      ))}
-      {habitos ? (
+      {habitos.length !== 0 ? (
+        habitos.map((h) => (
+          <HabitoDiv key={h.id}>
+            <p>{h.name}</p>
+            <SemanaDivs>
+              <Dia diaMarcado={h.days.indexOf(0) !== -1} dia="D" />
+              <Dia diaMarcado={h.days.indexOf(1) !== -1} dia="S" />
+              <Dia diaMarcado={h.days.indexOf(2) !== -1} dia="T" />
+              <Dia diaMarcado={h.days.indexOf(3) !== -1} dia="Q" />
+              <Dia diaMarcado={h.days.indexOf(4) !== -1} dia="Q" />
+              <Dia diaMarcado={h.days.indexOf(5) !== -1} dia="S" />
+              <Dia diaMarcado={h.days.indexOf(6) !== -1} dia="S" />
+            </SemanaDivs>
+            <ion-icon
+              onClick={() => excluirHabito(h.id)}
+              name="trash-outline"
+            ></ion-icon>
+          </HabitoDiv>
+        ))
+      ) : (
         <TextoSemHabito>
           <p>
             Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
             começar a trackear!
           </p>
         </TextoSemHabito>
-      ) : (
-        ""
       )}
       <Footer />
     </HabitosBody>
   );
 }
-
-// const habitosTeste = [
-//   {
-//     id: 1,
-//     name: "Limpar a Casa",
-//     days: [1, 3, 5],
-//   },
-//   {
-//     id: 2,
-//     name: "Varrer a cama",
-//     days: [1, 3, 4, 6],
-//   },
-//   {
-//     id: 3,
-//     name: "Jogar Lixo",
-//     days: [1, 3, 5],
-//   },
-//   {
-//     id: 4,
-//     name: "Beber Agua",
-//     days: [1, 3, 4, 6],
-//   },{
-//     id: 5,
-//     name: "Fazer o projeto",
-//     days: [1, 3, 5],
-//   },
-//   {
-//     id: 6,
-//     name: "Ir para a academia",
-//     days: [1, 3, 4, 6],
-//   },{
-//     id: 7,
-//     name: "Estudar",
-//     days: [1, 3, 5],
-//   },
-//   {
-//     id: 8,
-//     name: "Dormir",
-//     days: [1, 3, 4, 6],
-//   },
-//   {
-//     id: 9,
-//     name: "Sonhar",
-//     days: [1, 3, 4, 6],
-//   },
-//   {
-//     id: 10,
-//     name: "Jogar",
-//     days: [1, 3, 4, 6],
-//   },
-//   {
-//     id: 11,
-//     name: "Sarrar",
-//     days: [1, 3, 4, 6],
-//   }
-// ];
