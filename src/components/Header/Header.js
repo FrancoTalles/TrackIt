@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import styled from "styled-components"
 import { corHeader, fundoBotao } from "../../constants/colorInputs"
 import { AuthContext } from "../../contexts/auth"
@@ -6,7 +6,6 @@ import { AuthContext } from "../../contexts/auth"
 export default function Header (){
 
     const {user} = useContext(AuthContext)
-    console.log(user);
 
     return (
         <Topo>

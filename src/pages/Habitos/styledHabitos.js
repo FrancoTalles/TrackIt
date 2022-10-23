@@ -84,6 +84,7 @@ export const InputHabito = styled.input`
   font-weight: 400;
   font-size: 20px;
   line-height: 25px;
+  padding-left: 11px;
   &::placeholder {
     color: ${letrasBorda};
     font-family: "Lexend Deca", sans-serif;
@@ -97,7 +98,14 @@ export const InputHabito = styled.input`
 export const Semana = styled.div`
   margin-top: 8px;
   margin-left: 19px;
-  button {
+  display: flex;
+`;
+
+export const SemanaDivs = styled.div`
+  margin-top: 8px;
+  margin-left: 19px;
+  display: flex;
+  div {
     width: 30px;
     height: 30px;
     border: 1px solid ${letrasBorda};
@@ -110,7 +118,9 @@ export const Semana = styled.div`
     font-weight: 400;
     font-size: 20px;
     line-height: 25px;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -161,10 +171,10 @@ export const HabitoDiv = styled.div`
     margin-left: 19px;
     margin-top: 10px;
   }
-  div{
+  div {
     margin-top: 10px;
   }
-  ion-icon{
+  ion-icon {
     position: absolute;
     right: 7px;
     top: 7px;

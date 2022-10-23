@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { corBotao, fundoBotao } from "../../constants/colorInputs";
 
@@ -5,8 +6,8 @@ export default function Footer() {
   return (
     <>
       <Rodape>
-        <p>Hábitos</p>
-        <p>Histórico</p>
+        <Link to="/habitos"><p>Hábitos</p></Link>
+        <Link to="/historico"><p>Histórico</p></Link>
       </Rodape>
       <Barra>Hoje</Barra>
     </>
@@ -24,6 +25,9 @@ const Rodape = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  a{
+    text-decoration-line: none;
+  }
   p:first-child {
     color: ${corBotao};
     font-family: "Lexend Deca", sans-serif;
@@ -61,6 +65,4 @@ const Barra = styled.div`
     font-size: 18px;
     font-weight: 400;
     line-height: 22px;
-
-
 `
