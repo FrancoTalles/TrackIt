@@ -47,6 +47,12 @@ export default function Cadastro() {
     promise.catch((err) => {
       alert(err.response.data.message);
       setCarregando(false);
+      setForm({
+        email: "",
+        name: "",
+        image: "",
+        password: "",
+      })
     });
   }
 

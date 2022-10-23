@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { letrasBorda, fundoBotao, corBotao } from "../../constants/colorInputs";
+import { letrasBorda, fundoBotao, corBotao, grandesTextos, background } from "../../constants/colorInputs";
 
 export const LoginBody = styled.div`
   display: flex;
@@ -12,13 +12,28 @@ export const LogoImg = styled.img`
   height: 178px;
   margin-top: 68px;
 `;
-export const InputEmail = styled.input`
+
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 80.8%;
+`;
+
+export const InputEmail = styled.input`
+  width: 100%;
   height: 45px;
-  background-color: ${fundoBotao};
+  background-color: ${props => props.disabled ? background : fundoBotao};
   border: 1px solid ${letrasBorda};
   border-radius: 5px;
   margin-top: 32px;
+  padding-left: 11px;
+  color: ${grandesTextos};
+  font-family: "Lexend Deca", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
   &::placeholder {
     color: ${letrasBorda};
     font-family: "Lexend Deca", sans-serif;
@@ -46,6 +61,11 @@ export const BotaoEntrar = styled.button`
   line-height: 26px;
   font-weight: 400;
   font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: ${props => props.disabled ? "initial" : "pointer"};
+  filter: opacity(${props => props.disabled ? "60%" : "100%"});
 `;
 
 export const TextoParaCadastrar = styled.h1`

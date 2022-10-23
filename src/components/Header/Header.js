@@ -1,11 +1,17 @@
+import { useContext } from "react"
 import styled from "styled-components"
 import { corHeader, fundoBotao } from "../../constants/colorInputs"
+import { AuthContext } from "../../contexts/auth"
 
 export default function Header (){
+
+    const {user} = useContext(AuthContext)
+    console.log(user);
+
     return (
         <Topo>
             <h1>TrackIt</h1>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSREXLRo6oH-OoCDNP5cslz7xAt6EJPtE5KPjP8ZJ-9Q&s" alt="Foto" />
+            <img src={user.image} alt="Foto" />
         </Topo>
     )
 }

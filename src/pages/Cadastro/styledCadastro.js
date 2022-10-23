@@ -33,6 +33,7 @@ export const InputEmail = styled.input`
   border: 1px solid ${letrasBorda};
   border-radius: 5px;
   margin-top: 32px;
+  padding-left: 11px;
   color: ${grandesTextos};
   font-family: "Lexend Deca", sans-serif;
   font-style: normal;
