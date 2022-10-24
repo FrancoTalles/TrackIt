@@ -17,10 +17,10 @@ export default function Footer() {
     <>
       <Rodape>
         <Link to="/habitos">
-          <p>Hábitos</p>
+          <p data-identifier="habit-page-action">Hábitos</p>
         </Link>
         <Link to="/historico">
-          <p>Histórico</p>
+          <p data-identifier="historic-page-action">Histórico</p>
         </Link>
       </Rodape>
       <Barra onClick={irParaLogin}>
@@ -43,12 +43,11 @@ export default function Footer() {
 }
 
 const ProgressBar = styled(CircularProgressbar)`
-  text{
+  text {
     transform: translate(-18px, 5px);
     font-size: 18px;
-
   }
-`
+`;
 
 const Rodape = styled.div`
   width: 100%;

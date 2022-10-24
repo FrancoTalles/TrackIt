@@ -15,7 +15,6 @@ import { URL } from "../../constants/colorInputs";
 import axios from "axios";
 import { AuthContext } from "../../contexts/auth";
 
-
 export default function Login() {
   const [form, setForm] = useState({
     email: "",
@@ -30,7 +29,6 @@ export default function Login() {
 
   function handleForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log({ ...form, [e.target.name]: e.target.value });
   }
 
   function fazerLogin(event) {
@@ -40,7 +38,6 @@ export default function Login() {
     setCarregando(true);
 
     promise.then((resposta) => {
-      console.log(resposta);
       setCarregando(false);
       console.log("logado");
       setUser({
@@ -49,15 +46,14 @@ export default function Login() {
         image: resposta.data.image,
         name: resposta.data.name,
         token: resposta.data.token,
-      })
-      navigate("/hoje")
-
+      });
+      navigate("/hoje");
     });
 
     promise.catch((err) => {
       alert(err.response.data.message);
       setCarregando(false);
-      setForm({...form, password: ""})
+      setForm({ ...form, password: "" });
     });
   }
 
@@ -73,6 +69,7 @@ export default function Login() {
           onChange={handleForm}
           value={form.email}
           disabled={carregando}
+          data-identifier="input-email"
         />
         <InputSenha
           type="password"
@@ -82,8 +79,13 @@ export default function Login() {
           onChange={handleForm}
           value={form.password}
           disabled={carregando}
+          data-identifier="input-password"
         />
-        <BotaoEntrar type="submit" disabled={carregando}>
+        <BotaoEntrar
+          type="submit"
+          disabled={carregando}
+          data-identifier="login-btn"
+        >
           {carregando ? (
             <Dna
               visible={true}
@@ -99,7 +101,9 @@ export default function Login() {
         </BotaoEntrar>
       </StyledForm>
       <Link to="/cadastro">
-        <TextoParaCadastrar>Não tem uma conta? Cadastre-se!</TextoParaCadastrar>
+        <TextoParaCadastrar data-identifier="sign-up-action">
+          Não tem uma conta? Cadastre-se!
+        </TextoParaCadastrar>
       </Link>
     </LoginBody>
   );

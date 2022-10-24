@@ -29,7 +29,6 @@ export default function Cadastro() {
 
   function handleform(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log({ ...form, [e.target.name]: e.target.value });
   }
 
   function fazerCadastro(event) {
@@ -41,7 +40,6 @@ export default function Cadastro() {
     promise.then((resposta) => {
       navigate("/");
       setCarregando(false);
-      console.log(resposta);
     });
 
     promise.catch((err) => {
@@ -52,7 +50,7 @@ export default function Cadastro() {
         name: "",
         image: "",
         password: "",
-      })
+      });
     });
   }
 
@@ -68,6 +66,7 @@ export default function Cadastro() {
           onChange={handleform}
           value={form.email}
           disabled={carregando}
+          data-identifier="input-email"
         />
         <InputSenha
           type="password"
@@ -77,6 +76,7 @@ export default function Cadastro() {
           onChange={handleform}
           value={form.password}
           disabled={carregando}
+          data-identifier="input-password"
         />
         <InputNome
           type="text"
@@ -86,6 +86,7 @@ export default function Cadastro() {
           onChange={handleform}
           value={form.name}
           disabled={carregando}
+          data-identifier="input-name"
         />
         <InputFoto
           type="url"
@@ -95,6 +96,7 @@ export default function Cadastro() {
           onChange={handleform}
           value={form.image}
           disabled={carregando}
+          data-identifier="input-photo"
         />
         <BotaoCadastrar type="submit" disabled={carregando}>
           {carregando ? (
@@ -112,7 +114,9 @@ export default function Cadastro() {
         </BotaoCadastrar>
       </StyledForm>
       <Link to="/">
-        <TextoParaLogar>Já tem uma conta? Faça login!</TextoParaLogar>
+        <TextoParaLogar data-identifier="back-to-login-action">
+          Já tem uma conta? Faça login!
+        </TextoParaLogar>
       </Link>
     </CadastroBody>
   );

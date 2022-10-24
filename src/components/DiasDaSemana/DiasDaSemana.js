@@ -14,6 +14,7 @@ export default function DiasDaSemana(props) {
       }}
       key={index}
       clicado={clicado}
+      data-identifier="week-day-btn"
     >
       {dia}
     </DiasSemana>

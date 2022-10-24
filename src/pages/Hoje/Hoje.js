@@ -18,7 +18,7 @@ export default function Hoje() {
   const [habitosToday, setHabitosToday] = useState([]);
   const [controle, setControle] = useState(false);
 
-  const { user, porcentagem, setPorcentagem } = useContext(AuthContext);
+  const { user, setPorcentagem } = useContext(AuthContext);
 
   const config = {
     headers: {
@@ -27,31 +27,27 @@ export default function Hoje() {
   };
 
   const habitosDone = habitosToday.filter((i) => i.done !== false);
-  console.log(habitosDone);
-  console.log(habitosToday);
 
   let calculo = 0;
-  if (habitosDone.length === Number && habitosToday.length === Number){
+  if (habitosDone.length === 0 || habitosToday.length === 0) {
     calculo = 0;
-  }else{
-    calculo = (habitosDone.length / habitosToday.length) * 100
+  } else {
+    calculo = (habitosDone.length / habitosToday.length) * 100;
+    calculo = Math.round(calculo);
   }
   teste();
 
-
   useEffect(() => {
-
     const promise = axios.get(`${URL}/habits/today`, config);
 
     promise.then((resposta) => {
-      console.log(resposta.data);
       setHabitosToday(resposta.data);
     });
 
-    promise.catch((err) => console.log(err.response.data));
+    promise.catch((err) => alert(err.response.data.message));
   }, [controle]);
 
-  function teste (){
+  function teste() {
     setPorcentagem(calculo);
   }
 
@@ -65,7 +61,6 @@ export default function Hoje() {
       );
 
       promise.then((resposta) => {
-        console.log(resposta.data);
         setControle(!controle);
       });
 
@@ -74,7 +69,6 @@ export default function Hoje() {
       const promise = axios.post(`${URL}/habits/${idHabito}/check`, {}, config);
 
       promise.then((resposta) => {
-        console.log(resposta.data);
         setControle(!controle);
       });
 
@@ -92,16 +86,16 @@ export default function Hoje() {
     <HojeBody>
       <Header />
       <DiaAtual>
-        <h1>{hoje}</h1>
-        <h2>
-          {calculo !== Number && calculo === 0
+        <h1 data-identifier="today-infos">{hoje}</h1>
+        <h2 data-identifier="today-infos">
+          {isNaN(calculo) || calculo === 0
             ? "Nenhum hábito concluído ainda"
             : `${calculo}% dos hábitos concluídos`}
         </h2>
       </DiaAtual>
       {habitosToday.length !== 0 ? (
         habitosToday.map((h) => (
-          <HabitosHojeDiv key={h.id}>
+          <HabitosHojeDiv key={h.id} data-identifier="today-infos">
             <TituloSequencia
               feita={h.done}
               igual={h.currentSequence === h.highestSequence}
@@ -114,7 +108,11 @@ export default function Hoje() {
                 Seu recorde: <span>{h.highestSequence} dias</span>
               </p>
             </TituloSequencia>
-            <Checkbox feita={h.done} onClick={() => fazerCheck(h.done, h.id)}>
+            <Checkbox
+              feita={h.done}
+              onClick={() => fazerCheck(h.done, h.id)}
+              data-identifier="done-habit-btn"
+            >
               <ion-icon name="checkmark-outline"></ion-icon>
             </Checkbox>
           </HabitosHojeDiv>

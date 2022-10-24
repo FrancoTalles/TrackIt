@@ -47,7 +47,6 @@ export default function Habitos() {
     setCarregando(true);
 
     promise.then((resposta) => {
-      console.log(resposta.data);
       setCadastroAtivo(!cadastroAtivo);
       setAtualizar(!atualizar);
       setCarregando(false);
@@ -115,7 +114,6 @@ export default function Habitos() {
     const promise = axios.get(`${URL}/habits`, config);
 
     promise.then((resposta) => {
-      console.log(resposta.data);
       setHabitos(resposta.data);
     });
 
@@ -128,6 +126,7 @@ export default function Habitos() {
       <TituloBotao>
         <p>Meus hábitos</p>
         <button
+          data-identifier="create-habit-btn"
           onClick={() => {
             setCadastroAtivo(!cadastroAtivo);
             setDays([]);
@@ -147,6 +146,7 @@ export default function Habitos() {
               onChange={handleForm}
               value={form.name}
               disabled={carregando}
+              data-identifier="input-habit-name"
             ></InputHabito>
             <Semana>
               {diasSemana.map((d, index) => (
@@ -160,6 +160,7 @@ export default function Habitos() {
             </Semana>
             <CancelaSalva carregando={carregando}>
               <p
+                data-identifier="cancel-habit-create-btn"
                 onClick={() => {
                   setCadastroAtivo(!cadastroAtivo);
                   setAtualizar(!atualizar);
@@ -168,7 +169,11 @@ export default function Habitos() {
               >
                 Cancelar
               </p>
-              <button disabled={carregando} type="submit">
+              <button
+                disabled={carregando}
+                type="submit"
+                data-identifier="save-habit-create-btn"
+              >
                 {carregando ? (
                   <ThreeDots
                     height="20"
@@ -193,7 +198,7 @@ export default function Habitos() {
       {habitos.length !== 0 ? (
         habitos.map((h) => (
           <HabitoDiv key={h.id}>
-            <p>{h.name}</p>
+            <p data-identifier="habit-name">{h.name}</p>
             <SemanaDivs>
               <Dia diaMarcado={h.days.indexOf(0) !== -1} dia="D" />
               <Dia diaMarcado={h.days.indexOf(1) !== -1} dia="S" />
@@ -206,12 +211,13 @@ export default function Habitos() {
             <ion-icon
               onClick={() => excluirHabito(h.id)}
               name="trash-outline"
+              data-identifier="delete-habit-btn"
             ></ion-icon>
           </HabitoDiv>
         ))
       ) : (
         <TextoSemHabito>
-          <p>
+          <p data-identifier="no-habit-message">
             Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
             começar a trackear!
           </p>
