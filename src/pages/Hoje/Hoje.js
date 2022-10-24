@@ -28,21 +28,18 @@ export default function Hoje() {
 
   const habitosDone = habitosToday.filter((i) => i.done !== false);
   console.log(habitosDone);
+  console.log(habitosToday);
 
-  const calculo = (habitosDone.length / habitosToday.length) * 100;
-  console.log(habitosDone.length);
-  console.log(habitosToday.length);
-  console.log(calculo);
+  let calculo = 0;
+  if (habitosDone.length === Number && habitosToday.length === Number){
+    calculo = 0;
+  }else{
+    calculo = (habitosDone.length / habitosToday.length) * 100
+  }
+  teste();
+
 
   useEffect(() => {
-    const habitosDone = habitosToday.filter((i) => i.done !== false);
-    console.log(habitosDone);
-
-    const calculo = (habitosDone.length / habitosToday.length) * 100;
-    console.log(habitosDone.length);
-    console.log(habitosToday.length);
-    console.log(calculo);
-    setPorcentagem(calculo);
 
     const promise = axios.get(`${URL}/habits/today`, config);
 
@@ -54,7 +51,12 @@ export default function Hoje() {
     promise.catch((err) => console.log(err.response.data));
   }, [controle]);
 
+  function teste (){
+    setPorcentagem(calculo);
+  }
+
   function fazerCheck(estaFeito, idHabito) {
+    teste();
     if (estaFeito === true) {
       const promise = axios.post(
         `${URL}/habits/${idHabito}/uncheck`,
@@ -99,7 +101,7 @@ export default function Hoje() {
       </DiaAtual>
       {habitosToday.length !== 0 ? (
         habitosToday.map((h) => (
-          <HabitosHojeDiv key={h.id} onClick={() => fazerCheck(h.done, h.id)}>
+          <HabitosHojeDiv key={h.id}>
             <TituloSequencia
               feita={h.done}
               igual={h.currentSequence === h.highestSequence}
@@ -112,7 +114,7 @@ export default function Hoje() {
                 Seu recorde: <span>{h.highestSequence} dias</span>
               </p>
             </TituloSequencia>
-            <Checkbox feita={h.done}>
+            <Checkbox feita={h.done} onClick={() => fazerCheck(h.done, h.id)}>
               <ion-icon name="checkmark-outline"></ion-icon>
             </Checkbox>
           </HabitosHojeDiv>

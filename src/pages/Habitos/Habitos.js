@@ -111,8 +111,6 @@ export default function Habitos() {
     }
   }
 
-  function montarSemana() {}
-
   useEffect(() => {
     const promise = axios.get(`${URL}/habits`, config);
 

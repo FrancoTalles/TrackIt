@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import styled from "styled-components"
 import { corHeader, fundoBotao } from "../../constants/colorInputs"
 import { AuthContext } from "../../contexts/auth"
