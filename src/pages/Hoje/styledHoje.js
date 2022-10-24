@@ -71,6 +71,9 @@ export const TituloSequencia = styled.div`
     line-height: 16px;
     color: ${grandesTextos};
     margin-top: 7px;
+    span {
+      color: ${(props) => (props.feita ? corCheckBoxVerde : grandesTextos)};
+    }
   }
   p:last-child {
     font-family: "Lexend Deca", sans-serif;
@@ -79,12 +82,17 @@ export const TituloSequencia = styled.div`
     font-size: 13px;
     line-height: 16px;
     color: ${grandesTextos};
+    span {
+      color: ${(props) =>
+        props.igual && props.feita ? corCheckBoxVerde : grandesTextos};
+    }
   }
 `;
 
 export const Checkbox = styled.div`
   position: absolute;
-  background-color: ${props => (props.feita ? corCheckBoxVerde : corCheckBoxCinza)};
+  background-color: ${(props) =>
+    props.feita ? corCheckBoxVerde : corCheckBoxCinza};
   top: 13px;
   right: 13px;
   width: 69px;
@@ -97,5 +105,21 @@ export const Checkbox = styled.div`
   ion-icon {
     color: ${fundoBotao};
     font-size: 50px;
+  }
+`;
+
+export const TextoSemHabito = styled.div`
+  width: 100%;
+  height: 74px;
+  margin-top: 28px;
+  p {
+    font-family: "Lexend Deca", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: ${grandesTextos};
+    margin-left: 17px;
+    margin-right: 20px;
   }
 `;

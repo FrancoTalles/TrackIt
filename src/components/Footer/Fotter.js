@@ -1,15 +1,25 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { corBotao, fundoBotao } from "../../constants/colorInputs";
+import { AuthContext } from "../../contexts/auth";
 
 export default function Footer() {
+
+  const navigate = useNavigate();
+
+  const { porcentagem } = useContext(AuthContext);
+
+  function irParaLogin (){
+    navigate("/hoje")
+  }
   return (
     <>
       <Rodape>
         <Link to="/habitos"><p>Hábitos</p></Link>
         <Link to="/historico"><p>Histórico</p></Link>
       </Rodape>
-      <Barra>Hoje</Barra>
+      <Barra onClick={irParaLogin}>{porcentagem}</Barra>
     </>
   );
 }

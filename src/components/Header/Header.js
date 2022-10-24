@@ -10,7 +10,7 @@ export default function Header (){
     return (
         <Topo>
             <h1>TrackIt</h1>
-            <img src={user.image} alt="Foto" />
+            <img src={user.image} alt="Deslogado" />
         </Topo>
     )
 }

@@ -12,8 +12,10 @@ export function AuthProvider ({children}){
         token: "",
     })
 
+    const [porcentagem, setPorcentagem] = useState(0);
+
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={{user, setUser, porcentagem, setPorcentagem}}>
             {children}
         </AuthContext.Provider>
     )
